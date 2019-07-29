@@ -7,6 +7,7 @@ public class BunnyController : MonoBehaviour
     private Rigidbody2D myRigidBody;
     private Animator myAnimator;
     public float bunnyJumpForce = 500f;
+    private float bunnyHurtTime = -1;
     // Start is called before the first frame update
     void Start()
     {
@@ -31,7 +32,10 @@ public class BunnyController : MonoBehaviour
     {
         if (collision.collider.gameObject.layer == LayerMask.NameToLayer("Enemy"))
         {
-            Application.LoadLevel(Application.loadedLevel);
+           // Application.LoadLevel(Application.loadedLevel);
+           bunnyHurtTime = Time.time;
+            myAnimator.SetBool("Bunnyhurt", true);
+
         }
     }
 }

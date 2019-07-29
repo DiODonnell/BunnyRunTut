@@ -19,12 +19,15 @@ public class BunnyController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButtonUp("Jump"))
+        if (bunnyHurtTime == -1)
         {
-            myRigidBody.AddForce(transform.up * bunnyJumpForce);
-        }
+            if (Input.GetButtonUp("Jump"))
+            {
+                myRigidBody.AddForce(transform.up * bunnyJumpForce);
+            }
 
-        myAnimator.SetFloat("vVelocity", myRigidBody.velocity.y);
+            myAnimator.SetFloat("vVelocity", myRigidBody.velocity.y);
+        }
         
     }
 
@@ -32,7 +35,7 @@ public class BunnyController : MonoBehaviour
     {
         if (collision.collider.gameObject.layer == LayerMask.NameToLayer("Enemy"))
         {
-           // Application.LoadLevel(Application.loadedLevel);
+           
            bunnyHurtTime = Time.time;
             myAnimator.SetBool("Bunnyhurt", true);
 

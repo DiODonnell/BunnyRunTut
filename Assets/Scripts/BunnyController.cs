@@ -28,6 +28,13 @@ public class BunnyController : MonoBehaviour
 
             myAnimator.SetFloat("vVelocity", myRigidBody.velocity.y);
         }
+        else
+        {
+            if (Time.time > bunnyHurtTime + 2)
+            {
+                 Application.LoadLevel(Application.loadedLevel);
+            }
+        }
         
     }
 
@@ -35,9 +42,17 @@ public class BunnyController : MonoBehaviour
     {
         if (collision.collider.gameObject.layer == LayerMask.NameToLayer("Enemy"))
         {
+            foreach (PrefabSpawner spawn in FindObjectsOfType<PrefabSpawner>())
+            {
+                spawn.enabled = false;
+            }
+            foreach (MoveLeft moveLefter in FindObjectsOfType<MoveLeft>())
+            {
+                moveLefter.enabled = false;
+            }
            
            bunnyHurtTime = Time.time;
-            myAnimator.SetBool("Bunnyhurt", true);
+            myAnimator.SetBool("bunnyHurt", true);
 
         }
     }

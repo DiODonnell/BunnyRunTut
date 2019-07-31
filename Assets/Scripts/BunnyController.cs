@@ -8,11 +8,13 @@ public class BunnyController : MonoBehaviour
     private Animator myAnimator;
     public float bunnyJumpForce = 500f;
     private float bunnyHurtTime = -1;
+    private Collider2D myCollider;
     // Start is called before the first frame update
     void Start()
     {
         myRigidBody = GetComponent<Rigidbody2D>();
         myAnimator = GetComponent<Animator>();
+        myCollider = GetComponent<Collider2D>();
         
     }
 
@@ -51,8 +53,11 @@ public class BunnyController : MonoBehaviour
                 moveLefter.enabled = false;
             }
            
-           bunnyHurtTime = Time.time;
+            bunnyHurtTime = Time.time;
             myAnimator.SetBool("bunnyHurt", true);
+            myRigidBody.velocity = Vector2.zero;
+            myRigidBody.AddForce(transform.up * bunnyJumpForce);
+            myCollider.enabled = false;
 
         }
     }
